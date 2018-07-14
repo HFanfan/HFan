@@ -124,30 +124,31 @@ for(k in 1:(length(codGe)-1))
 	if(nchar(codGe[k])%%3!=0)
 	codGe[k+1]<-str_c(c(str_sub(codGe[k],-(nchar(codGe[k])%%3)),codGe[k+1]),collapse='')
 }
-Codon1<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon1<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon1<-unlist(Codon1)
 names(Codon1)<-NULL
-Codon2<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon2<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon2<-unlist(Codon2)
 names(Codon2)<-NULL
-Codon3<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon3<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon3<-unlist(Codon3)
 names(Codon3)<-NULL
 codGe<-tolower(codGe)
 codGe<-change(codGe)
-Codon4<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon4<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon4<-unlist(Codon4)
 names(Codon4)<-NULL
-Codon5<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon5<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon5<-unlist(Codon5)
 names(Codon5)<-NULL
-Codon6<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),by=3),seq(3,nchar(x),by=3)))
+Codon6<-sapply(codGe, function(x)substring(x,seq(1,nchar(x),3),seq(3,nchar(x),3)))
 Codon6<-unlist(Codon6)
 names(Codon6)<-NULL
 Codon<-c(Codon1,Codon2,Codon3,Codon4,Codon5,Codon6)
 mmm<-which(nchar(Codon)!=3)
 c<-Codon[-mmm]
 secret<-table(c)
+secret<-sort(secret)
 write.csv(secret,file="D:/Codon.csv")
 ## 可以得出密码子选择以及密码子偏好
 ```
