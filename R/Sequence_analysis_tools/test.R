@@ -1,0 +1,29 @@
+a<-NULL
+b<-NULL
+n<-1
+m<-1
+library(stringr)
+change<-function(m)
+{
+  m<-tolower(m)
+  m<-gsub("g","C",m)
+  m<-gsub("t","A",m)
+  m<-gsub("a","T",m)
+  m<-gsub("c","G",m)
+}
+con<-file("C:/Users/lenovo/Desktop/GCA_000715565.1_RSA_r1.0_genomic.fna","r")
+while(length(line<-readLines(con,1))>0)
+{
+  if(unlist(strsplit(line,split=""))[1]!=">")
+  {
+    line<-str_c(c(b,line),collapse='')
+    c<-substring(line,seq(1,nchar(line)-2,1),seq(3,nchar(line),1))
+    
+    m<-m+1
+    b<-c(str_sub(line,-2))
+    cat(m,"\n")
+  }
+}
+h<-change(a)
+a<-toupper(a)
+Codon<-table(a,h)
