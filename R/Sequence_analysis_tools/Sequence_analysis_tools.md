@@ -7,8 +7,14 @@ Sequence analysis tools will provide base and advance sequence ( DNA and protein
    - codon statistic: codon usage, codon preference
    - nucleotide composition statistic: GC%, base%(A,T,C,G,R,....), oligo composition, and restriction site, over- or under-presented oligo
 2. Search
+   - search by sequence name, or partial of the name: AB10
+   - search by sub sequence, this usually need tools such as blast and 
 3. Extraction
+   - Extraction sequences from fasta file by providing sequence names
+   - Extraction sequences by providing of **start, end, strand and complement** information
 4. manipulation
+   - translation: from DNA to mRNA to Protein
+   - Enzyme digestion simulation 
 
 
 
