@@ -18,7 +18,6 @@ while(length(line<-readLines(con,1))>0)
   {
     line<-str_c(c(b,line),collapse='')
     c<-substring(line,seq(1,nchar(line)-2,1),seq(3,nchar(line),1))
-    
     m<-m+1
     b<-c(str_sub(line,-2))
     cat(m,"\n")
@@ -27,3 +26,24 @@ while(length(line<-readLines(con,1))>0)
 h<-change(a)
 a<-toupper(a)
 Codon<-table(a,h)
+write.csv(Codon,file="D:/basic statistics.csv")
+
+##函数search需要输入fasta文件，以及所需要查找的scaffold的完整名称，
+##以">name"的形式输入，例如:输入">DF396802.1",就会得到第一条scaffold全序列
+search<-function(input,input_name)
+{
+  seq<-NULL
+  library(stringr)
+  con<-file(input,"r")
+  while(length(line<-readLines(con,1))>0)
+  {
+    if(unlist(strsplit(line,split=""))[1]==">")
+    {
+      real_name<-unlist(strsplit(line,split=" "))
+      if(real_name==input_name)
+        {
+           cat(line)
+        }
+    }
+  }
+}
