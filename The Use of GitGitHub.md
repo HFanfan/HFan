@@ -88,3 +88,41 @@
 ## 13.git clone 仓库地址
 
 从预想的仓库中下载你所需要的文件。
+
+
+
+
+
+
+
+
+
+#### git log --graph --oneline可以查询提交日志，例如以下内容
+
+​	e695606 which version checked in?
+
+​	a0c641e who does commit?
+
+​	9e8a761 initialized.
+
+#### 关于git reset 的使用
+
+git add -- filename 的反向操作 git reset -- filename
+
+git  reset HEAD filename 同上
+
+git reset --soft HEAD^  工作区和暂存区不会改变，但是引用向前回退一次。当对最新提交的提交说明或提交更改不满意的时候，撤销最新的提交以便重新提交。
+
+（
+
+​	有一个修补提交命令，git commit --amend， 用于对最新的提交进行重新提交以修补错误的提交说明或错误的提交文件。修补提交命令实际上相当于执行了下面两条命令。
+
+​			git reset -- soft HEAD^
+
+​			git commit -e -F filename）
+
+git reset HEAD^ 工作区不会改变，但是暂存区会回退到上一次提交之前，引用也会回退一次。
+
+git reset --mixed HEAD^同上
+
+git reset --hard HEAD^彻底撤销最近的提交。引用回退到前一次，而且工作区和暂存区都会回去到上一次提交的状态。自上一次以来的提交全部丢失。

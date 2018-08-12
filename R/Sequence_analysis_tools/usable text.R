@@ -227,3 +227,46 @@ trans<-function(input)
   mRNA<-sapply(genes,change)
   write.table(d,file="D:/mRNA.fna")
 }
+##模拟酶切，输入scaffold名称，input为酶切识别位点，标注切割位点,input1为切割的
+##后半部分，input2为切割的前半部分，注意input为大写字母，input1和2为小写字母。
+enzyme<-function(fastfile,input,input1,input2)
+{
+library(stringr)
+genes<-readLines(fastfile)
+Genes<-genes
+Genes[length(genes)+1]<-">"
+N.S<-0
+n.s<-0
+GC<-0
+K<-0
+sca_name<-0
+NAME<-unlist(strsplit(Genes[1],split=" "))
+sca_name[1]<-NAME[1]
+K[1]<-1
+for( k in 2:length(Genes))
+{
+  Gene<-unlist(strsplit(Genes[k],split=""))
+  if(Gene[1]==">") 
+  {
+    N.S=N.S+1
+    name<-unlist(strsplit(Genes[k],split=" "))
+    sca_name[N.S+1]<-name[1]
+    K[N.S+1]<-k
+  }
+}
+sca_name<- sca_name[1:(length(sca_name)-1)]
+for(i in 1:length(sca_name))
+{
+  if(name==sca_name[i])
+  {
+    codGe<-str_c(Genes[(K[i]+1):(K[i+1]-1)],collapse='')
+    break
+  }
+  i=i+1
+}
+codGe<-toupper(codGe)
+codGe<-unlist(strsplit(codGe,input))
+c<-c(codGe[1],str_c(input1,codGe[-1]))
+c<-c(paste0(c[1:(length(codGe)-1)],seq=input2),c[length(codGe)])
+cat(c)
+}
