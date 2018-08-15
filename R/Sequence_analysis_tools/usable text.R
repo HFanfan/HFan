@@ -228,8 +228,10 @@ trans<-function(input)
   write.table(d,file="D:/mRNA.fna")
 }
 ##模拟酶切，输入scaffold名称，input为酶切识别位点，标注切割位点,input1为切割的
-##后半部分，input2为切割的前半部分，注意input为大写字母，input1和2为小写字母。
-enzyme<-function(fastfile,input,input1,input2)
+##后半部分，input2为切割的前半部分，注意input为大写字母，input1正向数的切割点。
+##需要注意的是，如果酶切位点有简并性，则输入[AGCTN]替换对应位点的碱基，例如某
+##某酶切位点为“ATNGNG"，在N出切割，则输入input为”AT[ATCGN]G[ATCGN]G“和3即可。
+enzyme<-function(fastfile,scaffold_name,input,input1)
 {
 library(stringr)
 genes<-readLines(fastfile)
@@ -257,7 +259,7 @@ for( k in 2:length(Genes))
 sca_name<- sca_name[1:(length(sca_name)-1)]
 for(i in 1:length(sca_name))
 {
-  if(name==sca_name[i])
+  if(scaffold_name==sca_name[i])
   {
     codGe<-str_c(Genes[(K[i]+1):(K[i+1]-1)],collapse='')
     break
@@ -265,8 +267,19 @@ for(i in 1:length(sca_name))
   i=i+1
 }
 codGe<-toupper(codGe)
-codGe<-unlist(strsplit(codGe,input))
-c<-c(codGe[1],str_c(input1,codGe[-1]))
-c<-c(paste0(c[1:(length(codGe)-1)],seq=input2),c[length(codGe)])
-cat(c)
+b<-unlist(str_locate_all(codGe,input))
+start<-1
+end<-2
+for(i in 1:(length(b)/2))
+{
+  end<-b[i]+input1-1
+  c[i]<-str_sub(codGe,start,end)
+  start<-b[i]+input1
+}
+fina<-str_sub(codGe,(b[length(b)/2]+input1),nchar(codGe))
+c<-c(c,fina)
+for(i in 1:length(c))
+{
+  cat(i,c[i],nchar(c[i]),"\n")
+}
 }
